@@ -5,22 +5,26 @@ from pathlib import Path
 
 from module import AnswerNet
 
-def get_deers_params(prediction):
+def get_deers_params(input):
     '''
-    prediction: dictionary
-            {'image_name': str,
-            'bboxs': dictionary ({'x_c': list[int], 'y_c': list[int], 'w': list[int], 'h': list[int], 'class_labelconfidence': Interval[0, 1]]}),
+    input: dictionary
+
+            { 'image_name': str,
+              'bboxs': dictionary ({'x_c': list[int], 'y_c': list[int], 'w': list[int], 'h': list[int], 'confidence': Interval[0, 1]]}),
               'classes': list[Union('reindeer', 'fawn')], 
               'image_width': int, 
               'image_height': int
               }
+
+    output: DataFrame 
+
     '''
-    columns=['filename', 'x_c', 'y_c', 'w', 'h', 'class_labelconfidence', 'image_width', 'image_height']
+    columns=['filename', 'x_c', 'y_c', 'w', 'h', 'class_label', 'confidence', 'image_width', 'image_height']
     df = pd.DataFrame(data=np.zeros((len(classes), len(columns))), columns=columns)
-    df.loc[:, 'filename'] = prediction['image_name']
-    df.loc[:, 'image_width'] = prediction['image_width']
-    df.loc[:, 'image_height'] = prediction['image_height']
-    df.loc[:, 'classes'] = prediction['classes']
+    df.loc[:, 'filename'] = input['image_name']
+    df.loc[:, 'image_width'] = input['image_width']
+    df.loc[:, 'image_height'] = input['image_height']
+    df.loc[:, 'class_label'] = input['classes']
     for key in bbox.keys():
         df.loc[:, key] = bbox[key]
     return df
@@ -41,7 +45,7 @@ def main(args):
     # Start Predict
     elif MODE == 'predict':
         image_lst = glob(INPUT_PATH + '/*jpg')
-        submit_sample = pd.DataFrame(columns=['filename', 'x_c', 'y_c', 'w', 'h', 'class_labelconfidence', 'image_width', 'image_height'])
+        submit_sample = pd.DataFrame(columns=['filename', 'x_c', 'y_c', 'w', 'h', 'class_label', 'confidence', 'image_width', 'image_height'])
         for img_path in image_lst:
             prediction = MODEL.predict(img_path)
             df = get_deers_params(prediction)
