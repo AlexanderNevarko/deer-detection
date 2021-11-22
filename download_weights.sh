@@ -11,4 +11,4 @@ gdown --id ${DETECTION_NET} --fuzzy --output ${OUTPUT_PATH}/detection.pth
 
 #for colors
 CLASSIFICATION_NET='1-jK92IIoPk8YKqYdYEqFhyePRrV8-GBO'
-gdown --id ${COLOR_NET} --fuzzy --output ${OUTPUT_PATH}/classification.pth
+gdown --id ${CLASSIFICATION_NET} --fuzzy --output ${OUTPUT_PATH}/classification.pth

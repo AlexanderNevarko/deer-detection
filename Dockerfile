@@ -24,7 +24,7 @@ RUN apt-get update && \
     libxrender-dev \
     libxext6 \
     && apt-get clean \
-    && pip install --no-cache-dir -r /app/requirements.txt
+    && pip install --no-cache-dir -r /app/requirements.txt \
     && rm --force --recursive /var/lib/apt/lists/* \
     && rm --force --recursive /tmp/*
 

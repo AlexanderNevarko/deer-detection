@@ -3,10 +3,10 @@ mmcv-full==1.3.17
 mmdet
 
 gdown
+Pillow
 scikit-learn
 opencv-python
 albumentations
-Pillow
 timm
 numpy
 pandas
