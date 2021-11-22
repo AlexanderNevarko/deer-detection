@@ -64,6 +64,6 @@ class ClassificationNet:
         torch_img = self.transform(img).unsqueeze(0).to(self.device)
         pred = self.model(torch_img)[0]
         probs = self.softmax(pred)
-        class_idx = self.model(torch_img)[0].argmax(dim=0).detach().cpu().numpy()
+        class_idx = int(self.model(torch_img)[0].argmax(dim=0).detach().cpu().numpy())
         class_text = self.mapping[class_idx]
         return class_text, probs[class_idx]
