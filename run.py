@@ -33,7 +33,7 @@ def main(args):
             df = pd.DataFrame(data=np.zeros((len(prediction['class_label']), len(columns))), columns=columns)
             for key in prediction.keys():
               df.loc[:, key] = prediction[key]
-            submit_sample = pd.concate([submit_sample, df])
+            submit_sample = pd.concat([submit_sample, df])
         submit_sample.to_csv(OUTPUT_PATH + '/submission.csv', index=False)
 
 
