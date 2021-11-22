@@ -1,0 +1,13 @@
+Detector:
+    config: 'work_dir/config/vfnet_aug_v2.py'
+    checkpoint: 'work_dir/pretrained/epoch_72.pth'
+    device: 'cuda'
+    
+Classifier:
+    checkpoint: 'work_dir/pretrained/deers_all_vit_small_patch16_224_in21k_new_strategy.pth'
+    out_features: 2
+    device: 'cuda'
+    
+id_category_coco: 'configs/id_category_coco.yaml'
+relevant_classes: 'configs/relevant_classes.yaml'
+breed_detection: 'configs/breed_detection.yaml'
