@@ -3,31 +3,8 @@ import pandas as pd
 from glob import glob
 from pathlib import Path
 
-from module import AnswerNet
+from .modules import Inferencer
 
-def get_deers_params(input):
-    '''
-    input: dictionary
-
-            { 'image_name': str,
-              'bboxs': dictionary ({'x_c': list[int], 'y_c': list[int], 'w': list[int], 'h': list[int], 'confidence': Interval[0, 1]]}),
-              'classes': list[Union('reindeer', 'fawn')], 
-              'image_width': int, 
-              'image_height': int
-              }
-
-    output: DataFrame 
-
-    '''
-    columns=['filename', 'x_c', 'y_c', 'w', 'h', 'class_label', 'confidence', 'image_width', 'image_height']
-    df = pd.DataFrame(data=np.zeros((len(classes), len(columns))), columns=columns)
-    df.loc[:, 'filename'] = input['image_name']
-    df.loc[:, 'image_width'] = input['image_width']
-    df.loc[:, 'image_height'] = input['image_height']
-    df.loc[:, 'class_label'] = input['classes']
-    for key in bbox.keys():
-        df.loc[:, key] = bbox[key]
-    return df
 
 def main(args):
     MODE = args.mode
@@ -36,7 +13,7 @@ def main(args):
     OUTPUT_PATH = WORK_DIR + '/output'
     WEIGHTS_PATH = WORK_DIR + '/pretrained'
 
-    MODEL = AnswerNet()
+    MODEL = Inferencer()
 
     # Start Train
     if MODE == 'train':
@@ -45,10 +22,13 @@ def main(args):
     # Start Predict
     elif MODE == 'predict':
         image_lst = glob(INPUT_PATH + '/*jpg')
-        submit_sample = pd.DataFrame(columns=['filename', 'x_c', 'y_c', 'w', 'h', 'class_label', 'confidence', 'image_width', 'image_height'])
+        columns=['filename', 'x_c', 'y_c', 'w', 'h', 'class_labelconfidence', 'image_width', 'image_height']
+        submit_sample = pd.DataFrame(columns=columns)
         for img_path in image_lst:
             prediction = MODEL.predict(img_path)
-            df = get_deers_params(prediction)
+            df = pd.DataFrame(data=np.zeros((len(prediction['class_label']), len(columns))), columns=columns)
+            for key in prediction.keys():
+              df.loc[:, key] = prediction[key]
             submit_sample = pd.concate([submit_sample, df])
         submit_sample.to_csv(OUTPUT_PATH + '/submission.csv', index=False)
 
