@@ -80,7 +80,9 @@ class Inferencer:
             crop = crop.convert('RGB')
             class_label, confidence = self.classifier.inference(crop)
             confidence = confidence.detch().cpu().item()
-            predictions['filename'].append(img_path)
+            
+            img_name = img_name.split('/')[-1]
+            predictions['filename'].append(img_name)
             for k, v in yolo_bbox.items():
                 predictions[k].append(v)
             predictions['class_label'].append(class_label)
