@@ -29,7 +29,7 @@ def main(args):
         columns=['filename', 'x_c', 'y_c', 'w', 'h', 'class_label', 'confidence', 'image_width', 'image_height']
         submit_sample = pd.DataFrame(columns=columns)
         for img_path in image_lst:
-            prediction = MODEL.predict(img_path)
+            prediction = MODEL.inference(img_path)
             df = pd.DataFrame(data=np.zeros((len(prediction['class_label']), len(columns))), columns=columns)
             for key in prediction.keys():
               df.loc[:, key] = prediction[key]
