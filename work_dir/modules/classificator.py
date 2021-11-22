@@ -35,7 +35,9 @@ class ClassificationNet:
         self.model.head = nn.Linear(in_features=self.model.head.in_features, out_features=out_features)
         self.model.head.requires_grad_(False)
         self.model.load_state_dict(torch.load(checkpoint))
+        
         self.device = torch.device(device)
+        self.model.to(self.device)
         transform_test = A.Compose([
             A.LongestMaxSize(max_size=224),
             A.Normalize(
