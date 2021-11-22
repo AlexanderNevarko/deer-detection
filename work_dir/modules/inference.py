@@ -35,8 +35,8 @@ def convert_COCO2YOLO(bbox, img_w, img_h):
     x_l, y_l, x_r, y_r = bbox
     x_c = (x_l + x_r) / 2 / img_w
     y_c = (y_l + y_r) / 2 / img_h
-    h = abs(x_l - x_r) / img_w
-    w = abs(y_l - y_r) / img_h
+    w = abs(x_l - x_r) / img_w
+    h = abs(y_l - y_r) / img_h
     return {
         'x_c': x_c,
         'y_c': y_c,
@@ -79,7 +79,7 @@ class Inferencer:
             crop = img.crop(bbox)
             crop = crop.convert('RGB')
             class_label, confidence = self.classifier.inference(crop)
-            confidence = confidence.detch().cpu().item()
+            confidence = confidence.detach().cpu().item()
             
             img_name = img_path.split('/')[-1]
             predictions['filename'].append(img_name)
