@@ -12,11 +12,13 @@ Team: Repeat
 ```
 .
 ├── Dockerfile
-├── modules
+├── notebooks
 ├── README.md
 ├── requirements.txt
 ├── run.py
 └── work_dir
+    ├── modules
+    ├── configs
     ├── input
     │   ├── img0.jpg
     │   ├── img1.jpg
