@@ -46,12 +46,13 @@ def convert_COCO2YOLO(bbox, img_w, img_h):
 
 class Inferencer:
     
-    def __init__(self, config) -> None:
-        with open(config, 'r') as file:
-            kwargs = yaml.safe_load(file)
+    def __init__(self, detcetor_config,
+                 detector_checkpoint,
+                 classifier_checkpoint) -> None:
+        
             
-        self.detector = DetectObjects(**kwargs['Detector'])
-        self.classifier = ClassificationNet(**kwargs['Classifier'],)
+        self.detector = DetectObjects(detector_checkpoint, detcetor_config, 'cuda')
+        self.classifier = ClassificationNet(classifier_checkpoint)
         
         
     def inference(self, img_path):

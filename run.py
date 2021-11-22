@@ -2,8 +2,9 @@ import argparse
 import pandas as pd
 from glob import glob
 from pathlib import Path
+import numpy as np
 
-from .modules import Inferencer
+from .modules.inference import Inferencer
 
 
 def main(args):
@@ -11,9 +12,10 @@ def main(args):
     WORK_DIR = args.work_dir
     INPUT_PATH = WORK_DIR + '/input'
     OUTPUT_PATH = WORK_DIR + '/output'
+    CONFIG_PATH = WORK_DIR + '/config/model.yaml'
     WEIGHTS_PATH = WORK_DIR + '/pretrained'
 
-    MODEL = Inferencer()
+    MODEL = Inferencer(CONFIG_PATH)
 
     # Start Train
     if MODE == 'train':
@@ -22,7 +24,7 @@ def main(args):
     # Start Predict
     elif MODE == 'predict':
         image_lst = glob(INPUT_PATH + '/*jpg')
-        columns=['filename', 'x_c', 'y_c', 'w', 'h', 'class_labelconfidence', 'image_width', 'image_height']
+        columns=['filename', 'x_c', 'y_c', 'w', 'h', 'class_label', 'confidence', 'image_width', 'image_height']
         submit_sample = pd.DataFrame(columns=columns)
         for img_path in image_lst:
             prediction = MODEL.predict(img_path)
