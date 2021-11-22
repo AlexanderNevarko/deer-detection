@@ -28,7 +28,7 @@ class Transforms:
 
 class ClassificationNet:
     def __init__(self, checkpoint, out_features=2, device='cuda'):
-        self.model = timm.create_model('vit_small_patch16_224_in21k', pretrained=True)
+        self.model = timm.create_model('vit_small_patch16_224_in21k', pretrained=False)
         self.model.eval()
         for param in self.model.parameters():
             param.requires_grad_(False)
