@@ -12,10 +12,12 @@ def main(args):
     WORK_DIR = args.work_dir
     INPUT_PATH = WORK_DIR + '/input'
     OUTPUT_PATH = WORK_DIR + '/output'
-    CONFIG_PATH = WORK_DIR + '/config/model.yaml'
+    DETECTOR_CONFIG_PATH = WORK_DIR + '/config/vfnet_aug_v2.py'
     WEIGHTS_PATH = WORK_DIR + '/pretrained'
+    DETECTOR_CHECKPOINT = WEIGHTS_PATH + '/detection.pth'
+    CLASSIFIER_CHECKPOINT = WEIGHTS_PATH + '/classification.pth'
 
-    MODEL = Inferencer(CONFIG_PATH)
+    MODEL = Inferencer(DETECTOR_CONFIG_PATH, DETECTOR_CHECKPOINT, CLASSIFIER_CHECKPOINT)
 
     # Start Train
     if MODE == 'train':
