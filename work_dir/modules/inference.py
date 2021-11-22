@@ -58,7 +58,7 @@ class Inferencer:
     def inference(self, img_path):
         img = Image.open(img_path).convert('RGB')
         img_w, img_h = img.size
-        bboxes = self.detector.detect_all_deers(img_path, threshold=1e-3)
+        bboxes = self.detector.detect_all_deers(img_path, threshold=1e-2)
         
         predictions = defaultdict(list)
         
