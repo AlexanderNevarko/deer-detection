@@ -4,6 +4,7 @@ import albumentations as A
 import numpy as np
 import cv2
 import torch.nn as nn
+from albumentations.pytorch import ToTensorV2
 
 class Transforms:
     
@@ -48,7 +49,7 @@ class ClassificationNet:
                 value=0,
                 border_mode=cv2.BORDER_CONSTANT,
             ),
-            A.ToTensorV2(),
+            ToTensorV2(),
             ])
         self.transform = Transforms(transform_test)
         self.mapping = {

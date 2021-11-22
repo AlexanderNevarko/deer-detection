@@ -4,7 +4,7 @@ from glob import glob
 from pathlib import Path
 import numpy as np
 
-from .modules.inference import Inferencer
+from work_dir.modules.inference import Inferencer
 
 
 def main(args):
